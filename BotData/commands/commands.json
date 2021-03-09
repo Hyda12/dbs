@@ -1,0 +1,863 @@
+{
+  "command": [
+    {
+      "name": "help",
+      "actions": [
+        {
+          "name": "Help me",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "$$CommandChannel$$",
+          "color": "FFFFFF",
+          "title": "Help Message",
+          "url": "",
+          "authorname": "Aufpasser",
+          "authorimageurl": "https://cdn.discordapp.com/attachments/805915964335587368/815713935516631040/image0.jpg",
+          "authorlink": "",
+          "description": "Das sind die Commands für unseren Discord Server\n-Ticket erstellen\n-Status \n *Musik ( *help)mit dem befehl seht ihr was alles geht ihr müsst in einem sprachkanal sein das es geht.",
+          "thumbnail": "",
+          "image": "",
+          "footer": "© Aufpasser",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "warn",
+      "perms": [
+        "owner"
+      ],
+      "actions": [
+        {
+          "name": "getUserToWarn",
+          "category": "Variable",
+          "type": "Get Mentioned User",
+          "varname": "UserToWarn",
+          "vartype": "User",
+          "savevartype": "temp"
+        },
+        {
+          "name": "GetGrundToWarn",
+          "category": "Variable",
+          "type": "Store Value in Variable",
+          "varname": "reasontowarn",
+          "vartype": "Number",
+          "savevartype": "temp",
+          "param": "0"
+        },
+        {
+          "name": "warnLogs",
+          "category": "User Data",
+          "type": "Edit User Data",
+          "user": "${tempVars.UserToWarn.id}",
+          "field": "warn",
+          "oper": "+",
+          "value": "1"
+        },
+        {
+          "name": "LogsChannel",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "816647024467509279",
+          "color": "F0FF1F",
+          "title": "Warnung",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Der User<@${tempVars.UserToWarn.id}> wurde mit folgender Begründung gewarnt:${tempVars.reasontowarn}",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "InfoAtUser",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "24FF3A",
+          "title": "Erfolgreich",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "<@${tempVars.UserToWarn.id}> Du wurdest Gewarnt!",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "report-user",
+      "perms": [
+        "owner"
+      ],
+      "actions": [
+        {
+          "name": "whoToReport",
+          "category": "Variable",
+          "type": "Get Mentioned User",
+          "varname": "ReportUser",
+          "vartype": "User",
+          "savevartype": "temp"
+        },
+        {
+          "name": "whyToReport",
+          "category": "Variable",
+          "type": "Store Value in Variable",
+          "varname": "whyToReport",
+          "vartype": "Text",
+          "savevartype": "temp",
+          "param": "0"
+        },
+        {
+          "name": "Log-info",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "report",
+          "color": "FF0F0F",
+          "title": "Bericht",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Bericht von:**${dbsVars.CommandAuthor.user.tag}**\nBericht für :**${tempVars.ReportUser.user.tag}**\nGrund des Berichts:**${tempVars.whyToReport}**",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "LogsChannel_1",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "815960223520784435",
+          "color": "F0FF1F",
+          "title": "Bericht",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Der User <@${tempVars.ReportUser.id}>\nwurde mit folgender Begründung gewarnt:${tempVars.whyToReport}",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "InfoForUser",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "59FF40",
+          "title": "Erfolgreich",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Du hast **${tempVars.ReportUser.user.tag}** erfolgreich mit folgender Begründung Berichtet:**${tempVars.whyToReport}**",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "rank",
+      "actions": [
+        {
+          "name": "get User",
+          "category": "Variable",
+          "type": "Get Mentioned User",
+          "varname": "UserRank",
+          "vartype": "User",
+          "savevartype": "temp"
+        },
+        {
+          "name": "getXP",
+          "category": "User Data",
+          "type": "Get User Data",
+          "user": "${tempVars.UserRank.id}",
+          "field": "xp",
+          "varname": "xp",
+          "savevartype": "temp",
+          "vartype": "User"
+        },
+        {
+          "name": "getLevel",
+          "category": "User Data",
+          "type": "Get User Data",
+          "user": "${tempVars.UserRank.id}",
+          "field": "level",
+          "varname": "level",
+          "savevartype": "temp",
+          "vartype": "User"
+        },
+        {
+          "name": "sendRankCard",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "D3FF24",
+          "title": "Rank",
+          "url": "",
+          "authorname": "${tempVars.UserRank.displayName}",
+          "authorimageurl": "${tempVars.UserRank.user.avatarURL}",
+          "authorlink": "",
+          "description": "XP:**${tempVars.xp} /100**\nLevel:**${tempVars.level}**",
+          "thumbnail": "${tempVars.UserRank.user.avatarURL}",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "kick",
+      "perms": [
+        "owner"
+      ],
+      "actions": [
+        {
+          "name": "check kick perma",
+          "category": "User Action",
+          "type": "Check User Permissions",
+          "trueActions": [
+            {
+              "name": "get user to kick",
+              "category": "Variable",
+              "type": "Get Mentioned User",
+              "varname": "kickuser",
+              "vartype": "User",
+              "savevartype": "temp"
+            },
+            {
+              "name": "kicked user",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "816800040295071745",
+              "color": "5C26FF",
+              "title": "Kick User",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "<@${tempVars.kickuser.id}>  wurde gekickt vom Server!",
+              "thumbnail": "",
+              "image": "",
+              "footer": "",
+              "timestamp": "BOOL_TRUE@@",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "kick user",
+              "category": "User Action",
+              "type": "Kick User",
+              "user": "${tempVars.kickuser.id}",
+              "reason": ""
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "doesnt have kick perm",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "816800040295071745",
+              "messagetext": "<@$$CommandAuthor$$> Du hast nicht die Rolle für diesen Befehl!",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "user": "${dbsVars.CommandAuthor.id}",
+          "permissions": [
+            "KICK_MEMBERS"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ban",
+      "perms": [
+        "owner"
+      ],
+      "actions": [
+        {
+          "name": "GetUser",
+          "category": "Variable",
+          "type": "Get Mentioned User",
+          "varname": "BanUser",
+          "vartype": "User",
+          "savevartype": "temp"
+        },
+        {
+          "name": "GetDays",
+          "category": "Variable",
+          "type": "Store Value in Variable",
+          "varname": "bandays",
+          "vartype": "Number",
+          "savevartype": "temp",
+          "param": "2+"
+        },
+        {
+          "name": "BanThem",
+          "category": "User Action",
+          "type": "Ban User",
+          "user": "${tempVars.BanUser.id}",
+          "reason": "",
+          "days": "${tempVars.bandays}"
+        },
+        {
+          "name": "SendBan Notice",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "color": "FF0000",
+          "title": "Gebannt!",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "${tempVars.BanUser.displayName} wurde Gebannt was für ein Looser!",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "verify",
+      "perms": [],
+      "actions": [
+        {
+          "name": "Generate Code",
+          "category": "Variable",
+          "type": "Generate Random Number",
+          "varname": "code",
+          "min": "1000",
+          "max": "2000",
+          "savevartype": "temp"
+        },
+        {
+          "name": "AskForVerifikation",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "812303873522925618",
+          "color": "2130FF",
+          "title": "Verification Code :",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "**${tempVars.code}**\nGeben Sie in weniger als 5 Sekunden ein, um sicherzustellen, dass Sie kein Bot sind!",
+          "thumbnail": "",
+          "image": "",
+          "footer": "",
+          "timestamp": "BOOL_TRUE@@",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "WaitForVerify",
+          "category": "Bot Action",
+          "type": "Edited Wait",
+          "seconds": "5"
+        },
+        {
+          "name": "CheckTrue",
+          "category": "Variable",
+          "type": "Check Variable Value",
+          "trueActions": [
+            {
+              "name": "Add Verfication",
+              "category": "User Action",
+              "type": "Add Role to User",
+              "user": "${dbsVars.CommandAuthor.id}",
+              "rolename": "Member"
+            },
+            {
+              "name": "AskForVerifikation_1",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "812303873522925618",
+              "color": "41FF0D",
+              "title": "Verifiziert!",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "**Du kannst jetzt alles am Discord sehen und mit Leuten schreiben !**",
+              "thumbnail": "",
+              "image": "",
+              "footer": "",
+              "timestamp": "BOOL_TRUE@@",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "WaitForVerify_1_1",
+              "category": "Bot Action",
+              "type": "Edited Wait",
+              "seconds": "3"
+            },
+            {
+              "name": "DeleteMessages_1",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "812303873522925618",
+              "msgcount": "99"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "AskForVerifikation_1_1",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "812303873522925618",
+              "color": "FF0000",
+              "title": "**Verifizierung Fehlgeschlagen!**",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "**Versuche es später nochmal!**",
+              "thumbnail": "",
+              "image": "",
+              "footer": "",
+              "timestamp": "BOOL_TRUE@@",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "WaitForVerify_1",
+              "category": "Bot Action",
+              "type": "Edited Wait",
+              "seconds": "3"
+            },
+            {
+              "name": "DeleteMessages",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "812303873522925618",
+              "msgcount": "99"
+            }
+          ],
+          "varname": "code",
+          "savevartype": "temp",
+          "compare": "equal to",
+          "value": "${dbsVars.CommandAuthor.lastMessage}"
+        }
+      ]
+    },
+    {
+      "name": "ticket",
+      "actions": [
+        {
+          "name": "check count",
+          "category": "User Data",
+          "type": "Check User Data",
+          "trueActions": [
+            {
+              "name": "edit count",
+              "category": "User Data",
+              "type": "Set User Data",
+              "user": "815713689835274290",
+              "field": "ticket 1",
+              "fieldvalue": "2"
+            },
+            {
+              "name": "author channel",
+              "category": "Channel Action",
+              "type": "Edited Author Only Channel",
+              "chname": "ticket-1",
+              "chcatogory": "817120980476493905",
+              "chrole": "816786979542269992"
+            },
+            {
+              "name": "wait",
+              "category": "Message",
+              "type": "Wait",
+              "seconds": "2"
+            },
+            {
+              "name": "delete wait",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "msgcount": "1"
+            },
+            {
+              "name": "send welcome note",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "ticket-1",
+              "color": "1E90FF",
+              "title": "Neues Ticket",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "Hallo <@${dbsVars.CommandAuthor.id}>, unser Team wird sich gleich um dich kümmern!\nBitte beschreibe dein Problem in der Zwischenzeit!\n\n**Ticket Grund**:\nAllgemein",
+              "thumbnail": "",
+              "image": "",
+              "footer": "Aufpasser entwickelt von Hydra Mater (AUT)#0001",
+              "timestamp": "false",
+              "savetovariable": "welcomenote",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "ping",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "ticket-1",
+              "messagetext": "<@${dbsVars.CommandAuthor.id}>",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "wait_1",
+              "category": "Message",
+              "type": "Wait",
+              "seconds": "1"
+            },
+            {
+              "name": "delete wait_1",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "msgcount": "1"
+            },
+            {
+              "name": "delete wait_1_1",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "ticket-1",
+              "msgcount": "1"
+            },
+            {
+              "name": "ping to team",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "tickets",
+              "messagetext": "<@&816786979542269992>",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "delete wait_2",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "tickets",
+              "msgcount": "1"
+            },
+            {
+              "name": "team",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "tickets",
+              "color": "00FF00",
+              "title": "Neues Ticket!",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "<@${dbsVars.CommandAuthor.id}> hat ein ticket in <#${tempVars.welcomenote.channel.id}> gezogen",
+              "thumbnail": "",
+              "image": "",
+              "footer": "",
+              "timestamp": "false",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "team_1",
+              "category": "Message",
+              "type": "Send Embed",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "color": "00FF00",
+              "title": "Erfolgreich",
+              "url": "",
+              "authorname": "",
+              "authorimageurl": "",
+              "authorlink": "",
+              "description": "<@${dbsVars.CommandAuthor.id}> dein Ticket wurde in <#${tempVars.welcomenote.channel.id}> erstellt!",
+              "thumbnail": "",
+              "image": "",
+              "footer": "",
+              "timestamp": "false",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            },
+            {
+              "name": "wait_2",
+              "category": "Message",
+              "type": "Wait",
+              "seconds": "4"
+            },
+            {
+              "name": "delete wait_3",
+              "category": "Channel Action",
+              "type": "Delete All Messages",
+              "channelname": "${dbsVars.CommandChannel.id}",
+              "msgcount": "2"
+            }
+          ],
+          "falseActions": [
+            {
+              "name": "check count_1",
+              "category": "User Data",
+              "type": "Check User Data",
+              "trueActions": [
+                {
+                  "name": "edit count_3",
+                  "category": "User Data",
+                  "type": "Set User Data",
+                  "user": "815713689835274290",
+                  "field": "ticket 2",
+                  "fieldvalue": "2"
+                },
+                {
+                  "name": "author channel_1",
+                  "category": "Channel Action",
+                  "type": "Edited Author Only Channel",
+                  "chname": "ticket-1",
+                  "chcatogory": "817120980476493905",
+                  "chrole": "816786979542269992"
+                },
+                {
+                  "name": "wait_4",
+                  "category": "Message",
+                  "type": "Wait",
+                  "seconds": "2"
+                },
+                {
+                  "name": "delete wait_5",
+                  "category": "Channel Action",
+                  "type": "Delete All Messages",
+                  "channelname": "${dbsVars.CommandChannel.id}",
+                  "msgcount": "1"
+                },
+                {
+                  "name": "send welcome note_1",
+                  "category": "Message",
+                  "type": "Send Embed",
+                  "channelname": "ticket-1",
+                  "color": "1E90FF",
+                  "title": "Neues Ticket",
+                  "url": "",
+                  "authorname": "",
+                  "authorimageurl": "",
+                  "authorlink": "",
+                  "description": "Hallo <@${dbsVars.CommandAuthor.id}>, unser Team wird sich gleich um dich kümmern!\nBitte beschreibe dein Problem in der Zwischenzeit!\n\n**Ticket Grund**:\nAllgemein",
+                  "thumbnail": "",
+                  "image": "",
+                  "footer": "Aufpasser entwickelt von Hydra Mater (AUT)#0001",
+                  "timestamp": "false",
+                  "savetovariable": "welcomenote",
+                  "savetovariabletype": "temp"
+                },
+                {
+                  "name": "ping_1",
+                  "category": "Message",
+                  "type": "Send Message",
+                  "channelname": "ticket-1",
+                  "messagetext": "<@${dbsVars.CommandAuthor.id}>",
+                  "savetovariable": "",
+                  "savetovariabletype": "temp"
+                },
+                {
+                  "name": "wait_1_1",
+                  "category": "Message",
+                  "type": "Wait",
+                  "seconds": "1"
+                },
+                {
+                  "name": "delete wait_1_2",
+                  "category": "Channel Action",
+                  "type": "Delete All Messages",
+                  "channelname": "${dbsVars.CommandChannel.id}",
+                  "msgcount": "1"
+                },
+                {
+                  "name": "delete wait_1_1_1",
+                  "category": "Channel Action",
+                  "type": "Delete All Messages",
+                  "channelname": "ticket-1",
+                  "msgcount": "1"
+                },
+                {
+                  "name": "ping to team_1",
+                  "category": "Message",
+                  "type": "Send Message",
+                  "channelname": "tickets",
+                  "messagetext": "<@&816786979542269992>",
+                  "savetovariable": "",
+                  "savetovariabletype": "temp"
+                },
+                {
+                  "name": "delete wait_2_1",
+                  "category": "Channel Action",
+                  "type": "Delete All Messages",
+                  "channelname": "tickets",
+                  "msgcount": "1"
+                },
+                {
+                  "name": "team_2",
+                  "category": "Message",
+                  "type": "Send Embed",
+                  "channelname": "tickets",
+                  "color": "00FF00",
+                  "title": "Neues Ticket!",
+                  "url": "",
+                  "authorname": "",
+                  "authorimageurl": "",
+                  "authorlink": "",
+                  "description": "<@${dbsVars.CommandAuthor.id}> hat ein ticket in <#${tempVars.welcomenote.channel.id}> gezogen",
+                  "thumbnail": "",
+                  "image": "",
+                  "footer": "",
+                  "timestamp": "false",
+                  "savetovariable": "",
+                  "savetovariabletype": "temp"
+                }
+              ],
+              "falseActions": [],
+              "user": "815713689835274290",
+              "field": "ticket 2",
+              "compare": "equal to",
+              "value": "1"
+            }
+          ],
+          "user": "815713689835274290",
+          "field": "ticket 1",
+          "compare": "equal to",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "name": "set-ticket",
+      "actions": [
+        {
+          "name": "edit count_1",
+          "category": "User Data",
+          "type": "Set User Data",
+          "user": "815713689835274290",
+          "field": "ticket 1",
+          "fieldvalue": "1"
+        },
+        {
+          "name": "edit count_1_1",
+          "category": "User Data",
+          "type": "Set User Data",
+          "user": "815713689835274290",
+          "field": "ticket 2",
+          "fieldvalue": "1"
+        }
+      ]
+    },
+    {
+      "name": "claim-1",
+      "perms": [
+        "support"
+      ],
+      "actions": [
+        {
+          "name": "send claim embed",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "ticket-1",
+          "color": "00FF00",
+          "title": "Ticket  geclaimed",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Du wirst nun von <@${dbsVars.CommandAuthor.id}> unterstützt werden!",
+          "thumbnail": "",
+          "image": "",
+          "footer": "Aufpasser entwickelt von Hydra Mater (AUT)#0001",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        }
+      ]
+    },
+    {
+      "name": "close-1",
+      "perms": [
+        "support"
+      ],
+      "actions": [
+        {
+          "name": "send claim embed_1",
+          "category": "Message",
+          "type": "Send Embed",
+          "channelname": "ticket-1",
+          "color": "FF0000",
+          "title": "Ticket  Close",
+          "url": "",
+          "authorname": "",
+          "authorimageurl": "",
+          "authorlink": "",
+          "description": "Das Ticket wird in 5 sec geschlossen...!",
+          "thumbnail": "",
+          "image": "",
+          "footer": "Aufpasser entwickelt von Hydra Mater (AUT)#0001",
+          "timestamp": "false",
+          "savetovariable": "",
+          "savetovariabletype": "temp"
+        },
+        {
+          "name": "edit count_2",
+          "category": "User Data",
+          "type": "Set User Data",
+          "user": "815713689835274290",
+          "field": "ticket 1",
+          "fieldvalue": "1"
+        },
+        {
+          "name": "wait_3",
+          "category": "Message",
+          "type": "Wait",
+          "seconds": "5"
+        },
+        {
+          "name": "close ticket",
+          "category": "Channel Action",
+          "type": "Delete Channel",
+          "channelname": "ticket-1",
+          "reason": "Geschlossen von Moderator"
+        },
+        {
+          "name": "delete wait_4",
+          "category": "Channel Action",
+          "type": "Delete All Messages",
+          "channelname": "${dbsVars.CommandChannel.id}",
+          "msgcount": "1"
+        }
+      ]
+    }
+  ]
+}

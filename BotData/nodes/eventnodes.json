@@ -1,0 +1,374 @@
+{
+  "nodes": [
+    {
+      "type": "event",
+      "name": "User Joins Server",
+      "guid": "49ebbc23-2903-4f05-ab69-bc9ecb4f067e",
+      "variables": {
+        "user": "newuser"
+      },
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": []
+        }
+      ],
+      "x": 99,
+      "y": 100,
+      "perms": []
+    },
+    {
+      "type": "event",
+      "name": "Any Message",
+      "guid": "49ebbc23-2903-4f05-ab69-bc9ecb4f8888",
+      "variables": {
+        "user": "msguser"
+      },
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": [
+            "db122121-19f7-4bf8-aa31-75891f0a7a96"
+          ]
+        }
+      ],
+      "x": 99,
+      "y": 499,
+      "perms": []
+    },
+    {
+      "type": "event",
+      "name": "User Kicked",
+      "guid": "69ebbc23-2903-4f05-ab69-bc9ecb4f067e",
+      "variables": {
+        "user": "kickuser"
+      },
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": []
+        }
+      ],
+      "x": 99,
+      "y": 250,
+      "perms": []
+    },
+    {
+      "type": "event",
+      "name": "User Banned",
+      "guid": "77ebbc23-2003-4f05-ab69-bc9ecb4f067e",
+      "variables": {
+        "user": "banuser"
+      },
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": []
+        }
+      ],
+      "x": 100,
+      "y": 375,
+      "perms": []
+    },
+    {
+      "type": "event",
+      "name": "Bot Initialization",
+      "guid": "0101bc23-2003-4f05-ab69-bc9ecb4f067e",
+      "variables": {},
+      "outputs": [
+        {
+          "label": "responses",
+          "connections": []
+        }
+      ],
+      "x": 100,
+      "y": 625,
+      "perms": []
+    },
+    {
+      "type": "response",
+      "name": "generate XP Number",
+      "guid": "db122121-19f7-4bf8-aa31-75891f0a7a96",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "6fabd850-c685-4519-8b1f-a3f2ca19917f"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "49ebbc23-2903-4f05-ab69-bc9ecb4f8888"
+        }
+      ],
+      "x": 291,
+      "y": 469,
+      "rtype": "Variable",
+      "rsubtype": "Generate Random Number",
+      "formdata": [
+        "randXP",
+        "2",
+        "8",
+        "temp"
+      ],
+      "formnames": [
+        "varname",
+        "min",
+        "max",
+        "saveVarType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "addXP",
+      "guid": "6fabd850-c685-4519-8b1f-a3f2ca19917f",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "5d706ebd-bed9-48a4-adb5-a5fbabdf1086"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "db122121-19f7-4bf8-aa31-75891f0a7a96"
+        }
+      ],
+      "x": 464,
+      "y": 482,
+      "rtype": "User Data",
+      "rsubtype": "Edit User Data",
+      "formdata": [
+        "${tempVars.msguser.lastMessageID}",
+        "xp",
+        "+",
+        "${tempVars.randXP}"
+      ],
+      "formnames": [
+        "user",
+        "field",
+        "oper",
+        "value"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "checkXP",
+      "guid": "5d706ebd-bed9-48a4-adb5-a5fbabdf1086",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "true",
+          "connections": [
+            "58e9f0f5-02ac-461b-a979-b9b792d62558"
+          ]
+        },
+        {
+          "label": "false",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "6fabd850-c685-4519-8b1f-a3f2ca19917f"
+        }
+      ],
+      "x": 629,
+      "y": 460,
+      "rtype": "User Data",
+      "rsubtype": "Check User Data",
+      "formdata": [
+        "${tempVars.msguser.id}",
+        "xp",
+        "greater than",
+        "99"
+      ],
+      "formnames": [
+        "user",
+        "field",
+        "compare",
+        "value"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "addLevel",
+      "guid": "58e9f0f5-02ac-461b-a979-b9b792d62558",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "485e174e-0524-4d72-a095-ef5a99084d09"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "5d706ebd-bed9-48a4-adb5-a5fbabdf1086"
+        }
+      ],
+      "x": 799,
+      "y": 481,
+      "rtype": "User Data",
+      "rsubtype": "Edit User Data",
+      "formdata": [
+        "${tempVars.msguser.id}",
+        "lvl",
+        "+",
+        "1"
+      ],
+      "formnames": [
+        "user",
+        "field",
+        "oper",
+        "value"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "reset XP",
+      "guid": "485e174e-0524-4d72-a095-ef5a99084d09",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "535e06b1-ca00-4fa4-935e-0a20a2c60e26"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "58e9f0f5-02ac-461b-a979-b9b792d62558"
+        }
+      ],
+      "x": 965,
+      "y": 482,
+      "rtype": "User Data",
+      "rsubtype": "Set User Data",
+      "formdata": [
+        "${tempVars.msguser.id}",
+        "xp",
+        "0"
+      ],
+      "formnames": [
+        "user",
+        "field",
+        "fieldvalue"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "getLevel",
+      "guid": "535e06b1-ca00-4fa4-935e-0a20a2c60e26",
+      "reactionFields": [],
+      "embedfields": [],
+      "saveToVariable": "lvl",
+      "saveToVariableType": "temp",
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": [
+            "95c34c58-b80d-4a74-8e68-74406b54d93d"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "485e174e-0524-4d72-a095-ef5a99084d09"
+        }
+      ],
+      "x": 1134,
+      "y": 478,
+      "rtype": "User Data",
+      "rsubtype": "Get User Data",
+      "formdata": [
+        "${tempVars.msguser.id}",
+        "lvl",
+        "lvl",
+        "temp",
+        "User"
+      ],
+      "formnames": [
+        "user",
+        "field",
+        "varname",
+        "saveVarType",
+        "vartype"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "sendPing",
+      "guid": "95c34c58-b80d-4a74-8e68-74406b54d93d",
+      "reactionFields": [],
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": "535e06b1-ca00-4fa4-935e-0a20a2c60e26"
+        }
+      ],
+      "x": 1303,
+      "y": 470,
+      "rtype": "Message",
+      "rsubtype": "Send Message",
+      "formdata": [
+        "level",
+        "<@${tempVars.msguser.id}> hat jetzt **Level ${tempVars.lvl}**erreicht!",
+        "",
+        "temp"
+      ],
+      "formnames": [
+        "channelName",
+        "messageText",
+        "saveToVariable",
+        "saveToVariableType"
+      ]
+    },
+    {
+      "type": "response",
+      "name": "welcome",
+      "guid": "fc715a71-80a1-4295-9e74-896c814051b9",
+      "embedfields": [],
+      "outputs": [
+        {
+          "label": "next response",
+          "connections": []
+        }
+      ],
+      "inputs": [
+        {
+          "label": "trigger",
+          "id": []
+        }
+      ],
+      "x": 371,
+      "y": 250,
+      "rtype": "User Data",
+      "rsubtype": "Set User Data"
+    }
+  ]
+}

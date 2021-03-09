@@ -1,0 +1,109 @@
+{
+  "command": [
+    {
+      "name": "User Joins Server",
+      "perms": [],
+      "actions": [],
+      "var": {
+        "user": "newuser"
+      }
+    },
+    {
+      "name": "Any Message",
+      "perms": [],
+      "actions": [
+        {
+          "name": "generate XP Number",
+          "category": "Variable",
+          "type": "Generate Random Number",
+          "varname": "randXP",
+          "min": "2",
+          "max": "8",
+          "savevartype": "temp"
+        },
+        {
+          "name": "addXP",
+          "category": "User Data",
+          "type": "Edit User Data",
+          "user": "${tempVars.msguser.lastMessageID}",
+          "field": "xp",
+          "oper": "+",
+          "value": "${tempVars.randXP}"
+        },
+        {
+          "name": "checkXP",
+          "category": "User Data",
+          "type": "Check User Data",
+          "trueActions": [
+            {
+              "name": "addLevel",
+              "category": "User Data",
+              "type": "Edit User Data",
+              "user": "${tempVars.msguser.id}",
+              "field": "lvl",
+              "oper": "+",
+              "value": "1"
+            },
+            {
+              "name": "reset XP",
+              "category": "User Data",
+              "type": "Set User Data",
+              "user": "${tempVars.msguser.id}",
+              "field": "xp",
+              "fieldvalue": "0"
+            },
+            {
+              "name": "getLevel",
+              "category": "User Data",
+              "type": "Get User Data",
+              "user": "${tempVars.msguser.id}",
+              "field": "lvl",
+              "varname": "lvl",
+              "savevartype": "temp",
+              "vartype": "User"
+            },
+            {
+              "name": "sendPing",
+              "category": "Message",
+              "type": "Send Message",
+              "channelname": "level",
+              "messagetext": "<@${tempVars.msguser.id}> hat jetzt **Level ${tempVars.lvl}**erreicht!",
+              "savetovariable": "",
+              "savetovariabletype": "temp"
+            }
+          ],
+          "falseActions": [],
+          "user": "${tempVars.msguser.id}",
+          "field": "xp",
+          "compare": "greater than",
+          "value": "99"
+        }
+      ],
+      "var": {
+        "user": "msguser"
+      }
+    },
+    {
+      "name": "User Kicked",
+      "perms": [],
+      "actions": [],
+      "var": {
+        "user": "kickuser"
+      }
+    },
+    {
+      "name": "User Banned",
+      "perms": [],
+      "actions": [],
+      "var": {
+        "user": "banuser"
+      }
+    },
+    {
+      "name": "Bot Initialization",
+      "perms": [],
+      "actions": [],
+      "var": {}
+    }
+  ]
+}
