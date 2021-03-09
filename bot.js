@@ -153,9 +153,9 @@ DBS.callNextAction = async function (command, message, args, index) {
                 fetchedAction.mod(DBS, message, action, args, command, index);
             }
         }
-        
 
-        
+
+
     } catch (error) {
         DBS.logError({
             level: "error",
@@ -172,7 +172,7 @@ DBS.callNextEventAction = async function (type, varsE, index) {
 };
 
 DBS.startBot = async function () {
-    await DBS.Bot.login(DBS.SettingsFile.token)
+    await DBS.Bot.login(process.env.token)
     .then(value => {
         process.send("success");
     })
